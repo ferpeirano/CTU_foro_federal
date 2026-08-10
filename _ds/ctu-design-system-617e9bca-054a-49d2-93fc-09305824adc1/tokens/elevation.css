@@ -1,0 +1,5 @@
+:root {
+  /* Flat by default. Depth is surface + line + type weight. */
+  --shadow-none: none;
+  --shadow-modal: 0 8px 24px rgba(25, 24, 23, 0.08);
+}
