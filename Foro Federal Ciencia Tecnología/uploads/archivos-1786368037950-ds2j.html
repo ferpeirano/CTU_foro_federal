@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)file:///C:/Users/ferpe/Downloads/jornadas-bariloche-2026.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2das Jornadas · Propuestas para una Nueva Arquitectura Institucional en Universidad, Ciencia y Tecnología</title>
+<meta name="description" content="Propuestas para una Nueva Arquitectura Institucional en Universidad, Ciencia y Tecnología. 14 y 15 de mayo de 2026, Bariloche.">
+<link href="./index_files/css2" rel="stylesheet">
+<style>
+:root {
+  --ink:    #0f1923;
+  --gold:   #c8a84b;
+  --rust:   #b84c2b;
+  --slate:  #2a3d52;
+  --cream:  #f5f0e8;
+  --mid:    #555;
+  --white:  #ffffff;
+  --border: rgba(15,25,35,0.1);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; background:var(--white); color:var(--ink); overflow-x:hidden; }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(15,25,35,0.97);
+  backdrop-filter:blur(12px);
+  height:56px;
+  display:flex; align-items:stretch;
+  border-bottom:3px solid var(--ink);
+}
+nav::after {
+  content:''; position:absolute; bottom:-3px; left:0;
+  width:160px; height:3px; background:var(--gold);
+}
+.nav-inner {
+  max-width:1200px; margin:0 auto; padding:0 48px;
+  width:100%; display:flex; align-items:center; justify-content:space-between;
+}
+.nav-brand {
+  font-family:'DM Mono',monospace; font-size:13px;
+  letter-spacing:3px; color:var(--gold); text-transform:uppercase;
+}
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a {
+  font-family:'DM Mono',monospace; font-size:12px; letter-spacing:1.5px;
+  color:rgba(255,255,255,0.5); text-decoration:none; text-transform:uppercase;
+  transition:color 0.2s; padding-bottom:2px;
+  border-bottom:1px solid transparent;
+}
+.nav-links a:hover { color:var(--gold); border-color:var(--gold); }
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh;
+  background:var(--ink);
+  padding-top:56px;
+  display:flex; flex-direction:column;
+  position:relative; overflow:hidden;
+}
+.hero-grid {
+  position:absolute; inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(200,168,75,0.05) 59px,rgba(200,168,75,0.05) 60px),
+    repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(200,168,75,0.05) 59px,rgba(200,168,75,0.05) 60px);
+}
+.hero-inner {
+  position:relative; z-index:1;
+  max-width:1200px; margin:0 auto; padding:80px 48px 72px;
+  width:100%; flex:1; display:flex; flex-direction:column; justify-content:center;
+}
+.hero-eyebrow {
+  font-family:'DM Mono',monospace; font-size:14px;
+  letter-spacing:4px; color:var(--gold); text-transform:uppercase;
+  margin-bottom:32px;
+  display:flex; align-items:center; gap:16px;
+  opacity:0; animation:fadeUp 0.7s 0.1s forwards;
+}
+.hero-eyebrow::before {
+  content:''; display:block; width:40px; height:2px; background:var(--gold);
+}
+.hero h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(40px,5.5vw,80px);
+  font-weight:900; color:var(--white); line-height:1.07;
+  max-width:960px; margin-bottom:64px;
+  opacity:0; animation:fadeUp 0.7s 0.25s forwards;
+}
+.hero h1 em { font-style:italic; color:var(--gold); }
+
+/* Date + location strip — same pattern as flyer */
+.hero-strip {
+  display:flex; align-items:stretch;
+  opacity:0; animation:fadeUp 0.7s 0.4s forwards;
+  max-width:900px;
+  border-radius:4px; overflow:hidden;
+}
+.strip-dates {
+  background:var(--rust);
+  padding:28px 44px;
+  display:flex; align-items:center; gap:8px; flex-shrink:0;
+}
+.strip-date-box { text-align:center; }
+.strip-num {
+  font-family:'Playfair Display',serif; font-size:clamp(44px,5vw,64px);
+  font-weight:900; color:var(--white); line-height:1; display:block;
+}
+.strip-day {
+  font-family:'DM Mono',monospace; font-size:12px; letter-spacing:2px;
+  color:rgba(255,255,255,0.6); text-transform:uppercase; display:block; margin-top:4px;
+}
+.strip-dot {
+  font-family:'Playfair Display',serif; font-size:36px;
+  color:rgba(255,255,255,0.25); margin:0 6px; line-height:1;
+}
+.strip-loc {
+  background:var(--cream);
+  padding:28px 44px; flex:1;
+  display:flex; flex-direction:column; justify-content:center; gap:5px;
+  border-left:6px solid var(--gold);
+}
+.strip-month {
+  font-family:'Playfair Display',serif; font-size:20px;
+  font-style:italic; color:var(--slate);
+}
+.strip-city {
+  font-family:'Playfair Display',serif; font-size:clamp(22px,2.5vw,30px);
+  font-weight:700; color:var(--ink); line-height:1.1;
+}
+.strip-venue { font-size:17px; color:var(--mid); font-weight:400; }
+.strip-addr {
+  font-family:'DM Mono',monospace; font-size:14px;
+  color:var(--gold); letter-spacing:1px; margin-top:2px;
+}
+
+/* scroll cue */
+.hero-scroll {
+  position:relative; z-index:1;
+  max-width:1200px; margin:0 auto; padding:32px 48px 48px;
+  width:100%;
+  opacity:0; animation:fadeUp 0.7s 0.6s forwards;
+}
+.scroll-btn {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--rust); color:var(--white);
+  padding:14px 28px; border-radius:2px;
+  font-family:'DM Mono',monospace; font-size:13px;
+  letter-spacing:2px; text-transform:uppercase; text-decoration:none;
+  transition:background 0.2s, transform 0.15s;
+}
+.scroll-btn:hover { background:#9e3820; transform:translateY(-2px); }
+.scroll-btn svg { width:14px; height:14px; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── SHARED ── */
+.section { padding:88px 0; }
+.bg-white  { background:var(--white); }
+.bg-cream  { background:var(--cream); }
+.bg-ink    { background:var(--ink); }
+.bg-rust   { background:var(--rust); }
+.bg-slate  { background:var(--slate); }
+
+.container { max-width:1200px; margin:0 auto; padding:0 48px; }
+
+.eyebrow {
+  font-family:'DM Mono',monospace; font-size:13px;
+  letter-spacing:4px; text-transform:uppercase;
+  margin-bottom:16px; display:flex; align-items:center; gap:14px;
+}
+.eyebrow-line { display:inline-block; width:48px; height:1px; flex-shrink:0; }
+
+.sh2 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,3vw,46px); font-weight:900;
+  line-height:1.1; margin-bottom:40px;
+}
+
+/* ── CONVOCATORIA ── */
+.conv-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+.conv-body p {
+  font-size:17px; line-height:1.85; color:var(--mid);
+  font-weight:400; margin-bottom:20px;
+}
+.conv-body p:last-child { margin-bottom:0; }
+.conv-body em {
+  font-family:'Playfair Display',serif; font-style:italic;
+  color:var(--rust); font-size:18px;
+}
+.quote-card {
+  border-left:5px solid var(--rust);
+  padding:28px 32px; background:var(--cream);
+  border-radius:0 4px 4px 0;
+}
+.quote-card p {
+  font-family:'Playfair Display',serif; font-size:19px;
+  font-style:italic; line-height:1.7; color:var(--ink);
+}
+.quote-card cite {
+  display:block; margin-top:16px;
+  font-family:'DM Mono',monospace; font-size:13px;
+  letter-spacing:2px; color:var(--rust); text-transform:uppercase; font-style:normal;
+}
+
+/* ── PROPÓSITO — 3 pillars ── */
+.pillars { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; margin-top:8px; }
+.pillar {
+  background:rgba(200,168,75,0.07);
+  border-top:4px solid var(--gold);
+  padding:36px 32px;
+  transition:background 0.2s, transform 0.2s;
+}
+.pillar:hover { background:rgba(200,168,75,0.13); transform:translateY(-4px); }
+.pillar-n {
+  font-family:'Playfair Display',serif; font-size:44px; font-weight:900;
+  color:var(--gold); opacity:0.35; line-height:1; margin-bottom:16px;
+}
+.pillar-t { font-size:18px; font-weight:700; color:var(--white); margin-bottom:10px; }
+.pillar-b { font-size:16px; line-height:1.8; color:rgba(212,221,230,0.75); font-weight:400; }
+
+/* ── PROCESO — timeline ── */
+.timeline { position:relative; padding-left:56px; }
+.timeline::before {
+  content:''; position:absolute; left:12px; top:8px; bottom:8px;
+  width:2px; background:linear-gradient(to bottom, var(--rust), var(--gold));
+}
+.tl-item { position:relative; padding-bottom:60px; }
+.tl-item:last-child { padding-bottom:0; }
+.tl-dot {
+  position:absolute; left:-49px; top:6px;
+  width:14px; height:14px; border-radius:50%; border:3px solid var(--white);
+}
+.tl-dot.past    { background:var(--rust); box-shadow:0 0 0 2px rgba(184,76,43,0.25); }
+.tl-dot.current { background:var(--gold); box-shadow:0 0 0 2px rgba(200,168,75,0.3); }
+.tl-ey {
+  font-family:'DM Mono',monospace; font-size:13px; letter-spacing:3px;
+  text-transform:uppercase; margin-bottom:8px;
+}
+.tl-ey.past    { color:var(--rust); }
+.tl-ey.current { color:var(--gold); }
+.tl-h3 {
+  font-family:'Playfair Display',serif; font-size:24px;
+  font-weight:700; color:var(--ink); margin-bottom:10px;
+}
+.tl-p { font-size:17px; line-height:1.8; color:var(--mid); max-width:640px; }
+.tl-p strong { color:var(--ink); font-weight:700; }
+
+/* ── UNIVERSIDADES ── */
+.uni-cols { display:grid; grid-template-columns:1fr 1fr; gap:56px; }
+.uni-group-label {
+  font-family:'DM Mono',monospace; font-size:13px; letter-spacing:3px;
+  text-transform:uppercase; padding-bottom:14px; margin-bottom:20px; border-bottom:1px solid;
+}
+.uni-group-label.conv { color:var(--gold); border-color:rgba(200,168,75,0.3); }
+.uni-group-label.adh  { color:rgba(212,221,230,0.5); border-color:rgba(212,221,230,0.12); }
+.uni-list { list-style:none; display:flex; flex-direction:column; gap:4px; }
+.uni-list li {
+  display:flex; align-items:center; gap:12px;
+  padding:9px 14px; border-radius:2px; font-size:16px; font-weight:400;
+  transition:background 0.15s;
+}
+.uni-list.conv li {
+  color:rgba(212,221,230,0.9);
+  border-left:2px solid var(--gold); background:rgba(200,168,75,0.06);
+}
+.uni-list.conv li:hover { background:rgba(200,168,75,0.12); }
+.uni-list.adh li {
+  color:rgba(212,221,230,0.55);
+  border-left:2px solid rgba(200,168,75,0.2); background:rgba(255,255,255,0.03);
+}
+.uni-list.adh li:hover { background:rgba(255,255,255,0.07); }
+.uni-sig {
+  font-family:'DM Mono',monospace; font-size:13px; letter-spacing:1px;
+  color:var(--gold); min-width:60px; flex-shrink:0; opacity:0.8;
+}
+.uni-more {
+  margin-top:20px; font-size:15px; font-style:italic;
+  color:rgba(200,168,75,0.5); text-align:center;
+  font-family:'DM Mono',monospace; letter-spacing:1px;
+}
+
+/* ── CONTACTO ── */
+.contact-section {
+  display:grid; grid-template-columns:1fr auto; gap:60px; align-items:center;
+}
+.contact-left {}
+.contact-ey {
+  font-family:'DM Mono',monospace; font-size:13px; letter-spacing:4px;
+  color:var(--rust); text-transform:uppercase; margin-bottom:12px;
+}
+.contact-email {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,2.5vw,36px); font-weight:700;
+  color:var(--ink); margin-bottom:8px;
+  text-decoration:none; display:block;
+  transition:color 0.2s;
+}
+.contact-email:hover { color:var(--rust); }
+.contact-sub { font-size:17px; color:var(--mid); font-weight:400; line-height:1.7; }
+.contact-sub strong { color:var(--ink); font-weight:700; }
+
+.qr-block {
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+.qr-ey {
+  font-family:'DM Mono',monospace; font-size:13px; letter-spacing:3px;
+  color:var(--slate); text-transform:uppercase;
+}
+.qr-img {
+  width:160px; height:160px;
+  border:4px solid var(--ink); border-radius:4px;
+  padding:8px; background:white; display:block;
+}
+
+/* ── CIERRE ── */
+.cierre-q {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(20px,2.2vw,30px); font-style:italic; line-height:1.65;
+  color:var(--white); max-width:820px; margin:0 auto 48px;
+  text-align:center; position:relative; padding-top:52px;
+}
+.cierre-q::before {
+  content:'"'; position:absolute; top:-10px; left:50%;
+  transform:translateX(-50%); font-size:110px; color:var(--gold);
+  opacity:0.2; line-height:1; font-style:normal;
+}
+.cierre-rule { width:56px; height:2px; background:var(--gold); margin:0 auto 36px; }
+.cierre-data {
+  text-align:center; font-size:17px; line-height:2;
+  color:rgba(255,255,255,0.65);
+}
+.cierre-data strong { color:var(--white); font-weight:700; }
+
+/* ── FOOTER ── */
+footer {
+  background:var(--ink); padding:32px 48px;
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:12px;
+  border-top:5px solid var(--ink); position:relative;
+}
+footer::before {
+  content:''; position:absolute; top:0; left:0;
+  width:200px; height:5px; background:var(--gold);
+}
+.f-left {
+  font-family:'DM Mono',monospace; font-size:12px; letter-spacing:2px;
+  color:rgba(200,168,75,0.5); text-transform:uppercase; line-height:1.8;
+}
+.f-right {
+  font-family:'DM Mono',monospace; font-size:12px; letter-spacing:1px;
+  color:rgba(255,255,255,0.2);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width:860px) {
+  .nav-links { display:none; }
+  .hero-inner, .hero-scroll, .container { padding-left:24px; padding-right:24px; }
+  .section { padding:64px 0; }
+  .hero-strip { flex-direction:column; }
+  .strip-dates { justify-content:center; }
+  .conv-grid, .uni-cols, .contact-section { grid-template-columns:1fr; gap:36px; }
+  .pillars { grid-template-columns:1fr; gap:3px; }
+  footer { flex-direction:column; align-items:flex-start; padding:28px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">Jornadas 2026</div>
+    <ul class="nav-links">
+      <li><a href="file:///C:/Users/ferpe/Downloads/jornadas-bariloche-2026.html#convocatoria">Convocatoria</a></li>
+      <li><a href="file:///C:/Users/ferpe/Downloads/jornadas-bariloche-2026.html#proposito">Propósito</a></li>
+      <li><a href="file:///C:/Users/ferpe/Downloads/jornadas-bariloche-2026.html#proceso">Proceso</a></li>
+      <li><a href="file:///C:/Users/ferpe/Downloads/jornadas-bariloche-2026.html#universidades">Universidades</a></li>
+      <li><a href="file:///C:/Users/ferpe/Downloads/jornadas-bariloche-2026.html#contacto">Contacto</a></li>
+      <li><a href="https://drive.google.com/file/d/1YEFTqFDM9em62P50bf2V61fL72uK-pjW/view?usp=drive_link" target="_blank" style="background:var(--rust);color:var(--white);padding:6px 16px;border-radius:2px;border-bottom:none;font-weight:500;letter-spacing:1.5px;transition:background 0.2s;" onmouseover="this.style.background=&#39;#9e3820&#39;" onmouseout="this.style.background=&#39;var(--rust)&#39;">Programa</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">2das Jornadas · Mayo 2026</div>
+    <h1>Propuestas para una Nueva <em>Arquitectura</em> Institucional en Universidad, Ciencia y Tecnología</h1>
+    <div class="hero-strip">
+      <div class="strip-dates">
+        <div class="strip-date-box">
+          <span class="strip-num">14</span>
+          <span class="strip-day">Jueves</span>
+        </div>
+        <div class="strip-dot">·</div>
+        <div class="strip-date-box">
+          <span class="strip-num">15</span>
+          <span class="strip-day">Viernes</span>
+        </div>
+      </div>
+      <div class="strip-loc">
+        <div class="strip-month">de mayo de 2026</div>
+        <div class="strip-city">San Carlos de Bariloche</div>
+        <div class="strip-venue">Sede Andina · Universidad Nacional de Río Negro</div>
+        <div class="strip-addr">Anasagasti 1463</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <a href="https://drive.google.com/file/d/1YEFTqFDM9em62P50bf2V61fL72uK-pjW/view?usp=drive_link" target="_blank" class="scroll-btn">
+      Programa
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+    </a>
+  </div>
+</section>
+
+<!-- CONVOCATORIA -->
+<section class="section bg-white" id="convocatoria">
+  <div class="container">
+    <div class="eyebrow" style="color:var(--rust);">La convocatoria <span class="eyebrow-line" style="background:rgba(184,76,43,0.3);"></span></div>
+    <h2 class="sh2">Un debate urgente<br>y necesario</h2>
+    <div class="conv-grid">
+      <div class="conv-body">
+        <p>La Universidad Pública ha sido siempre un espacio de investigación, reflexión, debate y propuesta. Con ese mismo espíritu, un conjunto amplio y diverso de universidades nacionales encontramos oportuno constituir un espacio de encuentro para atender un debate urgente y necesario.</p>
+        <p>Convocamos a especialistas a participar de las <em>"2das Jornadas: Propuestas para una Nueva Arquitectura Institucional en Universidad, Ciencia y Tecnología"</em>, a realizarse los días jueves 14 y viernes 15 de mayo en la Sede Andina de la Universidad Nacional de Río Negro, San Carlos de Bariloche (Anasagasti 1463).</p>
+      </div>
+      <div>
+        <div class="quote-card">
+          <p>"La única manera efectiva de salir de la situación crítica en que actualmente nos encontramos es con la perspectiva de un cambio efectivo que construyamos quienes hacemos, sostenemos y defendemos un país con universidades públicas y con ciencia y tecnología comprometidas con la paz y la soberanía."</p>
+          <cite>Declaración de las instituciones convocantes</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPÓSITO -->
+<section class="section bg-ink" id="proposito">
+  <div class="container">
+    <div class="eyebrow" style="color:var(--gold);">El propósito <span class="eyebrow-line" style="background:rgba(200,168,75,0.3);"></span></div>
+    <h2 class="sh2" style="color:var(--white);">Más que diagnóstico:<br>propuesta concreta</h2>
+    <p style="font-size:17px;line-height:1.85;color:rgba(212,221,230,0.75);max-width:740px;margin-bottom:48px;font-weight:400;">El propósito es generar un ámbito adecuado para un análisis riguroso y fijar las bases para una propuesta técnica de referencia sobre las configuraciones institucionales que la Argentina necesita en materia de ciencia, tecnología e innovación. Un trabajo colectivo y de consenso que sirva de base para enriquecer la conversación pública e invitar al debate informado.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-n">A</div>
+        <div class="pillar-t">Análisis riguroso</div>
+        <div class="pillar-b">Generar un ámbito adecuado para una discusión técnica y académica profunda sobre las configuraciones institucionales que Argentina necesita.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-n">B</div>
+        <div class="pillar-t">Propuesta técnica de referencia</div>
+        <div class="pillar-b">Fijar las bases para enriquecer la conversación pública e invitar al debate informado, con lineamientos concretos de rediseño institucional.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-n">C</div>
+        <div class="pillar-t">Sistema federal e integrado</div>
+        <div class="pillar-b">Orientar reclamos y propuestas hacia un sistema más federal, más integrado y más relevante para un modelo de desarrollo productivo, inclusivo y sustentable.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="section bg-cream" id="proceso">
+  <div class="container">
+    <div class="eyebrow" style="color:var(--slate);">Un proceso en construcción <span class="eyebrow-line" style="background:rgba(42,61,82,0.2);"></span></div>
+    <h2 class="sh2">Retomamos el camino<br>iniciado en 2025</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-ey past">Junio 2025 · 1era Edición</div>
+        <div class="tl-h3">Universidad Nacional de Misiones · Posadas</div>
+        <p class="tl-p">9 y 10 de junio de 2025. Primera edición donde se establecieron las bases del diagnóstico y se abrió el debate sobre la arquitectura institucional necesaria para el desarrollo de la ciencia, la tecnología y la innovación en Argentina.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot current"></div>
+        <div class="tl-ey current">Mayo 2026 · 2da Edición</div>
+        <div class="tl-h3">Universidad Nacional de Río Negro · Bariloche</div>
+        <p class="tl-p">Esta edición avanza hacia la <strong>consolidación de una propuesta que trasciende el diagnóstico</strong> para ofrecer lineamientos concretos de rediseño institucional. Un trabajo colectivo y de consenso que sirva de base para enriquecer la conversación pública y orientar los reclamos hacia un cambio efectivo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIVERSIDADES -->
+<section class="section bg-ink" id="universidades">
+  <div class="container">
+    <h2 class="sh2" style="color:var(--white);">Organizan e invitan a estas Jornadas las siguientes universidades nacionales</h2>
+    <div class="uni-cols">
+      <div>
+        <div class="uni-group-label conv">Instituciones organizadoras</div>
+        <ul class="uni-list conv">
+          <li><span class="uni-sig">UNRN</span>Universidad Nacional de Río Negro</li>
+          <li><span class="uni-sig">UNaM</span>Universidad Nacional de Misiones</li>
+          <li><span class="uni-sig">UNCAUS</span>Universidad Nacional de Chaco Austral</li>
+          <li><span class="uni-sig">UNQ</span>Universidad Nacional de Quilmes</li>
+          <li><span class="uni-sig">UNPAZ</span>Universidad Nacional de José C. Paz</li>
+          <li><span class="uni-sig">UNdeC</span>Universidad Nacional de Chilecito</li>
+          <li><span class="uni-sig">UNTDF</span>Universidad Nacional de Tierra del Fuego</li>
+          <li><span class="uni-sig">UNPA</span>Universidad Nacional de Patagonia Austral</li>
+          <li><span class="uni-sig">UNT</span>Universidad Nacional de Tucumán</li>
+          <li><span class="uni-sig">UNICEN</span>Universidad Nacional del Centro</li>
+          <li><span class="uni-sig">UNSJ</span>Universidad Nacional de San Juan</li>
+          <li><span class="uni-sig">UNSa</span>Universidad Nacional de Salta</li>
+        </ul>
+      </div>
+      <div style="display:flex; align-items:flex-end;">
+        <p style="font-family:&#39;Playfair Display&#39;,serif; font-style:italic; font-size:20px; line-height:1.7; color:rgba(212,221,230,0.7); border-left:3px solid rgba(200,168,75,0.3); padding-left:24px;">y otras 10 universidades nacionales y provinciales que participarán a través de especialistas y autoridades.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section bg-white" id="contacto">
+  <div class="container">
+    <div class="eyebrow" style="color:var(--rust);">Información e inscripción <span class="eyebrow-line" style="background:rgba(184,76,43,0.3);"></span></div>
+    <div class="contact-section">
+      <div class="contact-left">
+        <div class="contact-ey" style="color:var(--ink); font-size:16px; font-weight:700; font-family:&#39;DM Sans&#39;,sans-serif; letter-spacing:1px; text-transform:none;">Para más información</div>
+        <a href="mailto:jornadasCTI@unrn.edu.ar" class="contact-email" style="font-size:clamp(16px,1.8vw,22px); color:var(--rust); display:flex; align-items:center; gap:10px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; color:var(--rust);"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+          jornadasCTI@unrn.edu.ar
+        </a>
+        <p class="contact-sub">
+          <strong>14 y 15 de mayo de 2026</strong><br>
+          Sede Andina · Universidad Nacional de Río Negro<br>
+          Anasagasti 1463 · San Carlos de Bariloche<br><br>
+          Convocatoria abierta a especialistas e investigadores.<br>
+          Escanear el código QR para completar la inscripción.
+        </p>
+      </div>
+      <div class="qr-block">
+        <div class="qr-ey">Inscripción</div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc9pb9cq4cbaCrtZa64CuZam4lwNIjYipNJHbniZA0G1gao6g/viewform" target="_blank" style="display:block;transition:transform 0.2s;border-radius:4px;" onmouseover="this.style.transform=&#39;scale(1.04)&#39;" onmouseout="this.style.transform=&#39;scale(1)&#39;">
+        <img class="qr-img" src="data:image/png;base64,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" alt="QR Inscripción">
+        </a>
+        <div style="font-family:&#39;DM Mono&#39;,monospace;font-size:13px;letter-spacing:1px;color:var(--mid);text-align:center;">forms.gle/6jmT1xuPdiKwjs5r7</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIERRE -->
+<section class="section bg-slate">
+  <div class="container">
+    <blockquote class="cierre-q">
+      Un trabajo colectivo y de consenso que sirva de base para enriquecer la conversación pública, invitar al debate informado y conquistar un horizonte que nos permita orientar los reclamos y las propuestas hacia la construcción de un sistema más federal, más integrado y más relevante para un modelo de desarrollo nacional productivo, inclusivo y sustentable.
+    </blockquote>
+    <div class="cierre-rule"></div>
+    <div class="cierre-data">
+      <strong>14 y 15 de mayo de 2026</strong><br>
+      Sede Andina · Universidad Nacional de Río Negro<br>
+      Anasagasti 1463 · San Carlos de Bariloche
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-left">2das Jornadas · Bariloche 2026<br>Red de Universidades Nacionales · Argentina</div>
+  <div class="f-right">#JornadasCTI · #UniversidadPública · #CienciaArgentina</div>
+</footer>
+
+
+
+</body></html>

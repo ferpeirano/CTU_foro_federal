@@ -1,0 +1,67 @@
+:root {
+  /* Base ramp — cool mist, slate and sage.
+     Palette anchors supplied by the user: #E9EEF2 #B9C6CE #6E8594 #344552 #7E9B8B.
+     The remaining steps are interpolations between those anchors, added only
+     where a surface, hover or line needed one. */
+  --mist-50: #f4f7f9;
+  --mist-100: #e9eef2;  /* anchor — page */
+  --mist-200: #dde5ea;
+  --mist-300: #ccd8df;
+  --slate-400: #b9c6ce; /* anchor — lines */
+  --slate-500: #6e8594; /* anchor — muted text */
+  --slate-600: #55697a;
+  --slate-900: #344552; /* anchor — ink, inverse */
+
+  --sage-300: #9db3a5;
+  --sage-500: #7e9b8b; /* anchor — accent */
+  --sage-600: #6a8676;
+  --sage-700: #557262;
+  --sage-800: #43594d;
+
+  /* Semantic hues outside the supplied five — retuned to the cool palette. */
+  --ochre-600: #a98a5c;
+  --brick-600: #a0625b;
+  --brick-700: #8a504a;
+  --brick-300: #d0a49e;
+
+  /* Semantic — surfaces */
+  --bg-primary: var(--mist-100);
+  --bg-secondary: var(--mist-200);
+  --bg-tertiary: var(--mist-300);
+  --bg-inverse: var(--slate-900);
+  --surface-card: var(--bg-secondary);
+  --surface-raised: var(--mist-50);
+  --surface-overlay: rgba(52, 69, 82, 0.4);
+
+  /* Semantic — text */
+  --text-primary: var(--slate-900);
+  --text-secondary: var(--slate-600);
+  --text-muted: var(--slate-500);
+  --text-inverse: var(--mist-100);
+  --text-accent: var(--sage-700);
+  --text-link: var(--sage-700);
+  --text-link-hover: var(--sage-800);
+
+  /* Semantic — accent & state.
+     --accent is the supplied sage: rules, underlines, icons, focus.
+     --accent-fill is the darker step used behind text, so labels stay legible. */
+  --accent: var(--sage-500);
+  --accent-hover: var(--sage-600);
+  --accent-soft: var(--sage-300);
+  --accent-wash: rgba(126, 155, 139, 0.12);
+  --accent-fill: var(--sage-700);
+  --accent-fill-hover: var(--sage-800);
+  --on-accent: var(--mist-100);
+
+  --success: var(--sage-700);
+  --warning: var(--ochre-600);
+  --danger: var(--brick-600);
+  --danger-hover: var(--brick-700);
+  --danger-soft: var(--brick-300);
+
+  /* Semantic — lines */
+  --border: var(--slate-400);
+  --border-strong: var(--slate-500);
+  --border-inverse: rgba(233, 238, 242, 0.18);
+  --focus-ring: var(--accent-fill);
+}
