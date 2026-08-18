@@ -3,7 +3,7 @@
 Sitio web del **Foro Federal de Ciencia, Tecnología y Universidad** (Foro Federal CTU).
 Lema: Ciencia Orientada, Tecnología Nacional, Universidad Crítica.
 
-Próximo encuentro: **9 y 10 de octubre de 2026**, Universidad Nacional del Chaco Austral (UNCAUS), Sede Resistencia, Resistencia, Chaco.
+Próximo encuentro: **8 y 9 de octubre de 2026**, Universidad Nacional del Chaco Austral (UNCAUS), Sede Resistencia, Resistencia, Chaco.
 
 ## Secciones
 
