@@ -1,0 +1,93 @@
+/* CTU — isotipo e isologo
+   Sistema de marca: sol de mayo + microchip. Una sola tinta, un solo isotipo.
+   Requiere Orbitron 900 (sigla) y Work Sans 400/500 (textos):
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Work+Sans:wght@400;500&display=swap">
+   El isotipo es siempre el sol de 16 radios. */
+
+.ctu-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  color: #344552;              /* tinta: --text-primary */
+  font-size: 40px;             /* unidad del bloqueo: todo lo demas es em */
+  line-height: 1;
+}
+.ctu-logo--inverse { color: #e9eef2; }   /* sobre fondo oscuro: --bg-inverse */
+
+.ctu-logo__sun {
+  width: 2.2em;
+  height: 2.2em;
+  flex: none;
+  display: block;
+}
+.ctu-logo__sun > img, .ctu-logo__sun > svg,
+.ctu-mark > img, .ctu-mark > svg { display: block; width: 100%; height: 100%; }
+
+.ctu-logo__sigla {
+  font-family: Orbitron, sans-serif;
+  font-weight: 900;
+  font-size: 1.05em;
+  line-height: 0.82;
+  letter-spacing: 0.075em;
+  text-indent: 0.075em;
+  transform: scaleX(1.07);
+  margin-top: 0.42em;
+}
+.ctu-logo__name {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 500;
+  font-size: 0.34em;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  margin-top: 0.8em;
+}
+.ctu-logo__rule {
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.32;
+  margin-top: 0.85em;
+}
+.ctu-logo__tag {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 400;
+  font-size: 0.3em;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-align: center;
+  opacity: 0.78;
+  margin-top: 0.85em;
+}
+
+/* Horizontal: sol a la izquierda, textos alineados a su eje */
+.ctu-logo--horizontal { flex-direction: row; align-items: center; gap: 0.7em; font-size: 26px; }
+.ctu-logo--horizontal .ctu-logo__sun { width: 2em; height: 2em; }
+.ctu-logo__text { display: flex; flex-direction: column; gap: 0.32em; align-items: flex-start; }
+.ctu-logo--horizontal .ctu-logo__sigla { font-size: 0.86em; transform: none; margin: 0; }
+.ctu-logo--horizontal .ctu-logo__name { font-size: 0.34em; letter-spacing: 0.24em; text-indent: 0.24em; margin: 0; opacity: 0.78; }
+
+/* El sistema usa un unico isotipo: ctu-sol-16.svg, en todos los tamanos. */
+
+/* Isotipo suelto y placa */
+.ctu-mark {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 0;
+}
+.ctu-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background: #344552;
+  color: #e9eef2;
+}
+.ctu-tile .ctu-mark { width: 68%; height: 68%; }
+
+/* El sol va dentro de .ctu-logo__sun o .ctu-mark, de dos maneras:
+   1. SVG en linea, con el archivo sin sufijo: hereda la tinta por currentColor.
+      Es la forma recomendada, y la unica que sirve cuando el bloqueo cambia de tono.
+   2. <img src="ctu-sol-16-ink.svg"> o "-mist.svg" cuando no se puede incrustar. */

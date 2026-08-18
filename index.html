@@ -3,6 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/logo/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/logo/favicon-180.png">
+<title>Foro Federal CTU — Ciencia Orientada, Tecnología Nacional, Universidad Crítica</title>
+<meta name="description" content="Investigadores, docentes, profesionales y tecnólogos de universidades nacionales e instituciones científico-tecnológicas debaten una nueva arquitectura institucional para la ciencia, la tecnología y las universidades nacionales de Argentina.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Foro Federal CTU">
+<meta property="og:title" content="Foro Federal CTU — Ciencia Orientada, Tecnología Nacional, Universidad Crítica">
+<meta property="og:description" content="Investigadores, docentes, profesionales y tecnólogos de universidades nacionales e instituciones científico-tecnológicas debaten una nueva arquitectura institucional para la ciencia, la tecnología y las universidades nacionales de Argentina.">
+<meta property="og:url" content="https://www.ctu-forofederal.ar/">
+<meta property="og:image" content="https://www.ctu-forofederal.ar/assets/bariloche-encuentro.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Foro Federal CTU — Ciencia Orientada, Tecnología Nacional, Universidad Crítica">
+<meta name="twitter:description" content="Investigadores, docentes, profesionales y tecnólogos de universidades nacionales e instituciones científico-tecnológicas debaten una nueva arquitectura institucional para la ciencia, la tecnología y las universidades nacionales de Argentina.">
+<meta name="twitter:image" content="https://www.ctu-forofederal.ar/assets/bariloche-encuentro.jpeg">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -17,17 +32,101 @@
 <link rel="stylesheet" href="_ds/ctu-design-system-617e9bca-054a-49d2-93fc-09305824adc1/tokens/motion.css">
 <link rel="stylesheet" href="_ds/ctu-design-system-617e9bca-054a-49d2-93fc-09305824adc1/tokens/base.css">
 <link rel="stylesheet" href="_ds/ctu-design-system-617e9bca-054a-49d2-93fc-09305824adc1/styles.css">
+<link rel="stylesheet" href="assets/logo/ctu-logo.css">
 <script src="_ds/ctu-design-system-617e9bca-054a-49d2-93fc-09305824adc1/_ds_bundle.js"></script>
 <style>
   body { background: var(--bg-primary); color: var(--text-primary); margin: 0; }
   a { color: var(--text-link); text-decoration: none; }
   a:hover { color: var(--text-link-hover); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Un solo <h1> por pantalla es requisito de accesibilidad/SEO. La sección
+     "Inicio" ya tiene uno visible (el título del hero); las otras cinco
+     pantallas no tenían ninguno porque el componente Section del Design
+     System siempre renderiza su `title` como <h2> — se agrega acá un <h1>
+     oculto visualmente pero presente para lectores de pantalla y buscadores,
+     sin tocar la jerarquía visual que ya está bien resuelta con los <h2>. */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* CTU isologo: horizontal block in the navbar (desktop/tablet),
+     isotipo-only mark below 640px — per assets/logo/README.md. */
+  .logo-mobile { display: none; }
+  @media (max-width: 640px) {
+    .logo-desktop { display: none !important; }
+    .logo-mobile { display: inline-flex !important; }
+  }
+
+  /* ==========================================================
+     Motion system: scroll reveal + hover lift.
+     Only `transform` and `opacity` are animated (compositor-only
+     properties), so both run off the main thread at 60fps and
+     never trigger layout or paint. `box-shadow` on hover is the
+     one exception (see .hover-lift below) and is deliberately
+     limited to short, small-area transitions.
+     `.js-reveal` is added by JS only when IntersectionObserver
+     is available, so content never gets stuck invisible if the
+     script fails to load.
+
+     `--reveal-y` and `--lift-y`/`--lift-scale` are combined in a
+     single `transform` declaration (below) instead of each class
+     writing its own `transform`. Two classes on the same element
+     (e.g. a card that both reveals and lifts) would otherwise
+     fight over the `transform` property by CSS specificity —
+     composing through custom properties sidesteps that entirely.
+     ========================================================== */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal,
+    .hover-lift {
+      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.35s ease;
+      transform: translateY(calc(var(--reveal-y, 0px) + var(--lift-y, 0px)))
+                 scale(var(--lift-scale, 1));
+    }
+
+    .js-reveal .reveal {
+      --reveal-y: 30px;
+      opacity: 0;
+    }
+    .js-reveal .reveal.is-visible {
+      --reveal-y: 0px;
+      opacity: 1;
+    }
+    /* Stagger for groups of siblings (cards, stats, list items) */
+    .reveal-group > .reveal:nth-child(2) { transition-delay: 0.08s; }
+    .reveal-group > .reveal:nth-child(3) { transition-delay: 0.16s; }
+    .reveal-group > .reveal:nth-child(4) { transition-delay: 0.24s; }
+    .reveal-group > .reveal:nth-child(n + 5) { transition-delay: 0.3s; }
+
+    .hover-lift:hover,
+    .hover-lift:focus-within {
+      --lift-y: -6px;
+      --lift-scale: 1.015;
+      box-shadow: 0 20px 40px -14px rgba(15, 23, 42, 0.35);
+    }
+  }
 </style>
 </helmet>
 
 <header style="position: sticky; top: 0; z-index: 30; background: var(--bg-primary); border-bottom: 1px solid var(--border); padding: var(--space-4) var(--page-margin); display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); flex-wrap: wrap;">
-  <a href="#/" style="display: inline-flex; align-items: center;">
-    <x-import component-from-global-scope="DesignSystem_617e9b.Logo" variant="compact" height="{{ 44 }}" hint-size="76px,44px"></x-import>
+  <a class="ctu-logo ctu-logo--horizontal logo-desktop" href="#/" style="font-size: 22px; text-decoration: none;">
+    <span class="ctu-logo__sun" aria-hidden="true"><img src="assets/logo/ctu-sol-16-ink.svg" alt=""></span>
+    <span class="ctu-logo__text">
+      <span class="ctu-logo__sigla">CTU</span>
+      <span class="ctu-logo__name">FORO FEDERAL</span>
+    </span>
+  </a>
+  <a class="logo-mobile" href="#/" style="align-items: center;">
+    <span class="ctu-mark" style="width: 32px; height: 32px;" role="img" aria-label="CTU Foro Federal"><img src="assets/logo/ctu-sol-16-ink.svg" alt=""></span>
   </a>
   <nav style="display: flex; gap: clamp(14px, 2.2vw, 28px); align-items: center; flex-wrap: wrap; font: var(--type-label); letter-spacing: var(--tracking-label);">
     <a href="#/" style="color: var(--text-secondary);" style-hover="color: var(--text-primary); text-decoration: none;">Inicio</a>
@@ -41,20 +140,29 @@
 
 <sc-if value="{{ esInicio }}" hint-placeholder-val="{{ true }}">
 <main data-screen-label="Inicio">
-  <section style="position: relative; overflow: hidden; background: var(--bg-inverse); color: var(--text-inverse); padding: var(--section-pad-lg) 0 var(--section-pad); min-height: 72vh; display: flex; align-items: flex-end;">
+  <section style="position: relative; overflow: hidden; background: var(--bg-inverse); color: var(--text-inverse); padding: var(--section-pad-lg) 0 var(--section-pad); min-height: 78vh; display: flex; align-items: center;">
     <video src="assets/hero-ctu.mp4" ref="{{ videoRef }}" muted="{{ true }}" loop="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"></video>
     <div style="position: absolute; inset: 0; background: rgba(52, 69, 82, 0.58);"></div>
-    <x-import component-from-global-scope="DesignSystem_617e9b.Container" style="position: relative;" hint-size="100%,auto">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: clamp(32px, 6vw, 72px); align-items: end;">
-        <div>
-          <div style="font: var(--type-eyebrow); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--accent-soft); margin-bottom: var(--space-5);">Ciencia Orientada · Tecnología Nacional · Universidad Crítica</div>
-          <h1 style="font: var(--type-display-fluid); letter-spacing: var(--tracking-display); margin: 0; max-width: 20ch; text-wrap: balance;">Foro Federal de Ciencia, Tecnología y Universidad</h1>
+    <x-import component-from-global-scope="DesignSystem_617e9b.Container" style="position: relative; width: 100%;" hint-size="100%,auto">
+      <div style="display: flex; flex-direction: column; gap: var(--space-8); max-width: 760px;">
+        <div class="ctu-logo ctu-logo--inverse" style="font-size: 48px; align-self: flex-start;">
+          <span class="ctu-logo__sun" aria-hidden="true"><img src="assets/logo/ctu-sol-16-mist.svg" alt=""></span>
+          <span class="ctu-logo__sigla">CTU</span>
+          <span class="ctu-logo__name">FORO FEDERAL</span>
+          <span class="ctu-logo__rule" aria-hidden="true"></span>
+          <span class="ctu-logo__tag">Ciencia · Tecnología · Universidad</span>
         </div>
-        <div style="max-width: 40ch; display: flex; flex-direction: column; gap: var(--space-6);">
-          <p style="font: var(--type-lead-fluid); color: rgba(233, 238, 242, 0.78); margin: 0; text-wrap: pretty;">Investigadores, docentes, profesionales y tecnólogos de universidades nacionales e instituciones científico-tecnológicas debatimos y proponemos una nueva arquitectura institucional para la ciencia, la tecnología y las universidades nacionales.</p>
-          <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+        <div style="display: flex; flex-direction: column; gap: var(--space-5);">
+          <div style="font: var(--type-eyebrow); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--accent-soft);">Ciencia Orientada · Tecnología Nacional · Universidad Crítica</div>
+          <h1 style="font: var(--type-display-fluid); letter-spacing: var(--tracking-display); margin: 0; max-width: 18ch; text-wrap: balance;">Foro Federal de Ciencia, Tecnología y Universidad</h1>
+          <p style="font: var(--type-lead-fluid); color: rgba(233, 238, 242, 0.78); margin: 0; max-width: 46ch; text-wrap: pretty;">Investigadores, docentes, profesionales y tecnólogos de universidades nacionales e instituciones científico-tecnológicas debatimos y proponemos una nueva arquitectura institucional para la ciencia, la tecnología y las universidades nacionales.</p>
+        </div>
+        <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+          <div class="hover-lift" style="border-radius: var(--radius-md);">
             <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="#/documento" size="lg" icon-right="arrow-right" hint-size="auto,48px">Leer el documento</x-import>
-            <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="#/reuniones" variant="secondary" size="lg" dc-props="{{ botonInverso }}" hint-size="auto,48px">Tercer Encuentro Nacional</x-import>
+          </div>
+          <div class="hover-lift" style="border-radius: var(--radius-md);">
+            <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="#/reuniones" variant="secondary" size="lg" dc-props="{{ botonInverso }}" hint-size="auto,48px">Tercer Encuentro</x-import>
           </div>
         </div>
       </div>
@@ -63,26 +171,28 @@
 
   <section style="background: var(--bg-secondary); padding: var(--section-pad) 0;">
     <x-import component-from-global-scope="DesignSystem_617e9b.Container" hint-size="100%,auto">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: clamp(32px, 5vw, 64px); align-items: start;">
-        <div>
-          <div style="font: var(--type-eyebrow); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); margin-bottom: var(--space-4);">Tercer Encuentro Nacional</div>
+      <div class="reveal-group" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: clamp(32px, 5vw, 64px); align-items: start;">
+        <div class="reveal">
+          <div style="font: var(--type-eyebrow); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); margin-bottom: var(--space-4);">Tercer Encuentro</div>
           <div style="display: flex; align-items: baseline; gap: var(--space-4); font: var(--type-display-fluid); letter-spacing: var(--tracking-display);">
-            <span>9</span>
+            <span>8</span>
             <span style="color: var(--accent);">·</span>
-            <span>10</span>
+            <span>9</span>
           </div>
           <div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--text-muted); margin-top: var(--space-3);">Octubre de 2026</div>
         </div>
-        <div style="max-width: 46ch; display: flex; flex-direction: column; gap: var(--space-5);">
+        <div class="reveal" style="max-width: 46ch; display: flex; flex-direction: column; gap: var(--space-5);">
           <h2 style="font: var(--type-h3-fluid); letter-spacing: var(--tracking-display); margin: 0;">Resistencia, Chaco. Universidad Nacional del Chaco Austral, Sede Resistencia.</h2>
-          <p style="font: var(--type-body); color: var(--text-secondary); margin: 0; text-wrap: pretty;">Convocamos a todos y todas a debatir y realizar críticas y aportes a este documento. Asimismo, a participar del tercer Encuentro Nacional del Foro CTU.</p>
+          <p style="font: var(--type-body); color: var(--text-secondary); margin: 0; text-wrap: pretty;">Convocamos a todos y todas a debatir y realizar críticas y aportes a este documento. Asimismo, a participar del tercer Encuentro del Foro CTU.</p>
           <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
-            <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="#/reuniones" variant="secondary" hint-size="auto,40px">Ver las reuniones del Foro</x-import>
+            <div class="hover-lift" style="border-radius: var(--radius-md);">
+              <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="#/reuniones" variant="secondary" hint-size="auto,40px">Ver las reuniones del Foro</x-import>
+            </div>
           </div>
         </div>
       </div>
-      <figure style="margin: var(--stack-gap) 0 0;">
-        <img src="assets/resistencia.jpg" alt="Cartel de Resistencia, Chaco, al atardecer" style="width: 100%; height: clamp(200px, 30vw, 380px); object-fit: cover; border-radius: var(--radius-xl); display: block;">
+      <figure class="reveal hover-lift" style="margin: var(--stack-gap) 0 0; border-radius: var(--radius-xl);">
+        <img src="assets/resistencia.webp" alt="Monumento y letras del cartel de Resistencia en una plaza arbolada de la ciudad" loading="lazy" style="width: 100%; height: clamp(200px, 30vw, 380px); object-fit: cover; border-radius: var(--radius-xl); display: block;">
         <figcaption style="font: var(--type-mono); letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--text-muted); margin-top: var(--space-3);">Resistencia, Chaco</figcaption>
       </figure>
     </x-import>
@@ -91,37 +201,48 @@
   <sc-if value="{{ mostrarLema }}" hint-placeholder-val="{{ true }}">
   <x-import component-from-global-scope="DesignSystem_617e9b.Section" eyebrow="El lema" title="Ciencia Orientada, Tecnología Nacional, Universidad Crítica" hint-size="100%,auto">
     <x-import component-from-global-scope="DesignSystem_617e9b.Grid" min="280" hint-size="100%,auto">
-      <div style="border-top: 1px solid var(--accent); padding-top: var(--space-5);">
-        <h3 style="font: var(--type-h4); margin: 0 0 var(--space-3);">Ciencia Orientada</h3>
-        <p style="font: var(--type-small); color: var(--text-secondary); margin: 0; text-wrap: pretty;">Orientar el desarrollo científico y tecnológico hacia la resolución de los grandes problemas nacionales, con una agenda construida a partir de las demandas de un Proyecto Nacional Soberano.</p>
+      <div class="reveal-group" style="display: contents;">
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--accent); padding: var(--space-5) var(--space-4) var(--space-4); margin: 0 calc(var(--space-4) * -1); border-radius: var(--radius-md);">
+          <h3 style="font: var(--type-h4); margin: 0 0 var(--space-3);">Ciencia Orientada</h3>
+          <p style="font: var(--type-small); color: var(--text-secondary); margin: 0; text-wrap: pretty;">Orientar el desarrollo científico y tecnológico hacia la resolución de los grandes problemas nacionales, con una agenda construida a partir de las demandas de un Proyecto Nacional Soberano.</p>
+        </div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-5) var(--space-4) var(--space-4); margin: 0 calc(var(--space-4) * -1); border-radius: var(--radius-md);">
+          <h3 style="font: var(--type-h4); margin: 0 0 var(--space-3);">Tecnología Nacional</h3>
+          <p style="font: var(--type-small); color: var(--text-secondary); margin: 0; text-wrap: pretty;">Una economía que priorice la producción con tecnología propia, orientada a la soberanía productiva, alimentaria y energética, con el Estado recuperando la planificación estratégica.</p>
+        </div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-5) var(--space-4) var(--space-4); margin: 0 calc(var(--space-4) * -1); border-radius: var(--radius-md);">
+          <h3 style="font: var(--type-h4); margin: 0 0 var(--space-3);">Universidad Crítica</h3>
+          <p style="font: var(--type-small); color: var(--text-secondary); margin: 0; text-wrap: pretty;">La universidad pública como plataforma institucional central de la federalización, con pensamiento crítico, pluralismo y compromiso con los territorios.</p>
+        </div>
       </div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-5);">
-        <h3 style="font: var(--type-h4); margin: 0 0 var(--space-3);">Tecnología Nacional</h3>
-        <p style="font: var(--type-small); color: var(--text-secondary); margin: 0; text-wrap: pretty;">Una economía que priorice la producción con tecnología propia, orientada a la soberanía productiva, alimentaria y energética, con el Estado recuperando la planificación estratégica.</p>
-      </div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-5);">
-        <h3 style="font: var(--type-h4); margin: 0 0 var(--space-3);">Universidad Crítica</h3>
-        <p style="font: var(--type-small); color: var(--text-secondary); margin: 0; text-wrap: pretty;">La universidad pública como plataforma institucional central de la federalización, con pensamiento crítico, pluralismo y compromiso con los territorios.</p>
+      </x-import>
+      <div class="reveal hover-lift" style="margin-top: var(--space-7); border-radius: var(--radius-md); display: inline-flex;">
+        <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="assets/CTU_NuestroIsologo.pdf" target="_blank" variant="secondary" icon-left="download" hint-size="auto,40px">Conoce más sobre nuestro logo</x-import>
       </div>
     </x-import>
-  </x-import>
   </sc-if>
 
   <section style="background: var(--bg-secondary); padding: var(--section-pad) 0;">
     <x-import component-from-global-scope="DesignSystem_617e9b.Container" hint-size="100%,auto">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: clamp(32px, 5vw, 64px); align-items: start;">
-        <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+      <div class="reveal-group" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: clamp(32px, 5vw, 64px); align-items: start;">
+        <div class="reveal" style="display: flex; flex-direction: column; gap: var(--space-6);">
           <div>
             <div style="font: var(--type-eyebrow); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); margin-bottom: var(--space-3);">El documento</div>
             <h2 style="font: var(--type-h2-fluid); letter-spacing: var(--tracking-display); margin: 0;">Propuestas para una nueva arquitectura institucional</h2>
           </div>
           <p style="font: var(--type-body); color: var(--text-secondary); margin: 0; max-width: 46ch; text-wrap: pretty;">Las conclusiones y propuestas elaboradas en las 2das Jornadas de mayo de 2026 en Bariloche, organizadas en siete ejes de debate. Un insumo para discutir cómo construir un sistema de Ciencia, Tecnología e Innovación más federal, más integrado y más vinculado con la sociedad.</p>
           <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
-            <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="{{ docHref }}" target="_blank" icon-left="file-text" hint-size="auto,40px">Abrir el PDF</x-import>
-            <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="#/documento" variant="ghost" hint-size="auto,40px">Ver los siete ejes</x-import>
+            <div class="hover-lift" style="border-radius: var(--radius-md);">
+              <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="{{ docHref }}" target="_blank" icon-left="file-text" hint-size="auto,40px">Abrir el PDF</x-import>
+            </div>
+            <div class="hover-lift" style="border-radius: var(--radius-md);">
+              <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="#/documento" variant="ghost" hint-size="auto,40px">Ver los siete ejes</x-import>
+            </div>
           </div>
         </div>
-        <x-import component-from-global-scope="DesignSystem_617e9b.Quote" quote="No es un documento cerrado, sino un conjunto de Ideas Fuerza, que permitan elaborar propuestas que ofrezcan una alternativa de futuro para el complejo CTI." attribution="Foro Federal CTU" source="9 de julio de 2026" size="md" hint-size="100%,auto"></x-import>
+        <div class="reveal">
+          <x-import component-from-global-scope="DesignSystem_617e9b.Quote" quote="No es un documento cerrado, sino un conjunto de Ideas Fuerza, que permitan elaborar propuestas que ofrezcan una alternativa de futuro para el complejo CTI." attribution="Foro Federal CTU" source="9 de julio de 2026" size="md" hint-size="100%,auto"></x-import>
+        </div>
       </div>
     </x-import>
   </section>
@@ -129,31 +250,62 @@
   <sc-if value="{{ mostrarCifras }}" hint-placeholder-val="{{ true }}">
   <x-import component-from-global-scope="DesignSystem_617e9b.Section" eyebrow="Las 2das Jornadas en números" title="Bariloche, mayo de 2026" hint-size="100%,auto">
     <x-import component-from-global-scope="DesignSystem_617e9b.Grid" min="200" hint-size="100%,auto">
-      <x-import component-from-global-scope="DesignSystem_617e9b.Stat" label="Convocantes" value="12" note="Universidades nacionales." hint-size="100%,auto"></x-import>
-      <x-import component-from-global-scope="DesignSystem_617e9b.Stat" label="Presenciales" value="+100" note="Rectores, investigadores y funcionarios de CTI." hint-size="100%,auto"></x-import>
-      <x-import component-from-global-scope="DesignSystem_617e9b.Stat" label="Transmisión" value="+600" note="Siguieron las jornadas por YouTube." hint-size="100%,auto"></x-import>
-      <x-import component-from-global-scope="DesignSystem_617e9b.Stat" label="Documento" value="7 ejes" note="Del marco político a la evaluación." hint-size="100%,auto"></x-import>
+      <div class="reveal-group" style="display: contents;">
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md); padding: var(--space-3);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.Stat" label="Convocantes" value="12" note="Universidades nacionales." hint-size="100%,auto"></x-import>
+        </div>
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md); padding: var(--space-3);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.Stat" label="Presenciales" value="+100" note="Rectores, investigadores y funcionarios de CTI." hint-size="100%,auto"></x-import>
+        </div>
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md); padding: var(--space-3);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.Stat" label="Transmisión" value="+600" note="Siguieron las jornadas por YouTube." hint-size="100%,auto"></x-import>
+        </div>
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md); padding: var(--space-3);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.Stat" label="Documento" value="7 ejes" note="Del marco político a la evaluación." hint-size="100%,auto"></x-import>
+        </div>
+      </div>
     </x-import>
   </x-import>
   </sc-if>
 
   <x-import component-from-global-scope="DesignSystem_617e9b.Section" surface="lifted" eyebrow="Noticias" title="Lo último del Foro" hint-size="100%,auto">
     <x-import component-from-global-scope="DesignSystem_617e9b.Grid" min="260" hint-size="100%,auto">
-      <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Institucional" title="Queda conformado el Foro Federal CTU" dek="Tras las jornadas de Posadas y Bariloche, las instituciones participantes constituyen el Foro con el lema Ciencia Orientada, Tecnología Nacional, Universidad Crítica." meta="9 de julio de 2026" href="#/noticias" hint-size="100%,auto"></x-import>
-      <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Documento" title="Publicamos las Ideas Fuerza para el debate" dek="Siete ejes con las conclusiones y propuestas de las 2das Jornadas, abiertas a críticas y aportes." meta="9 de julio de 2026" href="#/documento" hint-size="100%,auto"></x-import>
-      <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Encuentro" title="El tercer Encuentro Nacional será en Resistencia" dek="La UNCAUS recibe al Foro los días 9 y 10 de octubre de 2026 en su Sede Resistencia." meta="Chaco" href="#/reuniones" hint-size="100%,auto"></x-import>
+      <div class="reveal-group" style="display: contents;">
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Institucional" title="Queda conformado el Foro Federal CTU" dek="Tras las jornadas de Posadas y Bariloche, las instituciones participantes constituyen el Foro con el lema Ciencia Orientada, Tecnología Nacional, Universidad Crítica." meta="9 de julio de 2026" href="#/noticias" hint-size="100%,auto"></x-import>
+        </div>
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Documento" title="Publicamos las Ideas Fuerza para el debate" dek="Siete ejes con las conclusiones y propuestas de las 2das Jornadas, abiertas a críticas y aportes." meta="9 de julio de 2026" href="#/documento" hint-size="100%,auto"></x-import>
+        </div>
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Encuentro" title="El tercer Encuentro será en Resistencia" dek="La UNCAUS recibe al Foro los días 8 y 9 de octubre de 2026 en su Sede Resistencia." meta="Chaco" href="#/reuniones" hint-size="100%,auto"></x-import>
+        </div>
+      </div>
     </x-import>
   </x-import>
 
-  <x-import component-from-global-scope="DesignSystem_617e9b.CTABand" title="Sumá tu institución al debate" lead="Escribinos para recibir el documento, enviar aportes o adherir al Foro Federal CTU." hint-size="100%,auto"></x-import>
+  <section style="background: var(--bg-inverse); color: var(--text-inverse); padding: var(--section-pad) 0;">
+    <x-import component-from-global-scope="DesignSystem_617e9b.Container" hint-size="100%,auto">
+      <div class="reveal-group" style="display: flex; flex-wrap: wrap; gap: var(--space-7); align-items: center; justify-content: space-between;">
+        <div class="reveal" style="max-width: 28ch;">
+          <h2 style="font: var(--type-h2-fluid); letter-spacing: var(--tracking-display); margin: 0;">Sumate al debate.</h2>
+          <p style="font: var(--type-lead-fluid); color: rgba(233, 238, 242, 0.72); margin: var(--space-4) 0 0;">Escribinos para recibir el documento, enviar aportes o adherir al Foro Federal CTU.</p>
+        </div>
+        <div class="reveal hover-lift" style="width: 50%; min-width: 260px; flex-shrink: 0; border-radius: var(--radius-lg);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.Figure" src="assets/bariloche-encuentro.jpeg" alt="Investigadores, docentes y funcionarios de universidades nacionales reunidos en las 2das Jornadas del Foro Federal CTU" credit="Bariloche, mayo de 2026" ratio="4 / 3" hint-size="100%,auto"></x-import>
+        </div>
+      </div>
+    </x-import>
+  </section>
 </main>
 </sc-if>
 
 <sc-if value="{{ esDocumento }}" hint-placeholder-val="{{ false }}">
 <main data-screen-label="Documento">
+  <h1 class="visually-hidden">Propuestas para una nueva arquitectura institucional en Universidad, Ciencia y Tecnología</h1>
   <x-import component-from-global-scope="DesignSystem_617e9b.Section" size="lg" width="prose" eyebrow="Documento" title="Propuestas para una nueva arquitectura institucional en Universidad, Ciencia y Tecnología" hint-size="100%,auto">
     <x-import component-from-global-scope="DesignSystem_617e9b.Prose" hint-size="100%,auto">
-      <p style="margin: 0;">Desde hace algo más de un año, un grupo de investigadores y docentes de varias universidades nacionales, junto a profesionales y tecnólogos de distintas instituciones científico-tecnológicas, nos reunimos en la Universidad Nacional de Misiones (UNaM), en Posadas, y posteriormente en la Universidad Nacional de Río Negro (UNRN), Sede Andina, en Bariloche, a debatir y proponer una nueva arquitectura institucional para la ciencia, la tecnología y las universidades nacionales, con vistas a superar la situación de disolución, destrucción y cientificidio que está padeciendo el sector de ciencia y tecnología de la Argentina.</p>
+      <p style="margin: 0;">Desde hace algo más de un año, un grupo de investigadores y docentes de varias universidades nacionales, junto a profesionales y tecnólogos de distintas instituciones científico-tecnológicas, nos reunimos en la Universidad Nacional de Misiones (UNaM) y la Universidad Nacional del Chaco Austral (UNCAUS), en Posadas, y posteriormente en la Universidad Nacional de Río Negro (UNRN), Sede Andina, en Bariloche, a debatir y proponer una nueva arquitectura institucional para la ciencia, la tecnología y las universidades nacionales, con vistas a superar la situación de disolución, destrucción y cientificidio que está padeciendo el sector de ciencia y tecnología de la Argentina.</p>
       <p style="margin: 0;">Como resultado de este camino emprendido y luego de amplios debates hemos conformado el Foro Federal de Ciencia, Tecnología y Universidad (Foro Federal CTU) con el lema: Ciencia Orientada, Tecnología Nacional, Universidad Crítica. En este marco hemos elaborado además un documento que ponemos a consideración de los colegas y del pueblo en su conjunto.</p>
       <p style="margin: 0;">Creemos que este texto es un insumo para alimentar el debate sobre cómo construir un sistema de Ciencia, Tecnología e Innovación más federal, más integrado y más vinculado con la sociedad, en el marco de un Proyecto Nacional de desarrollo productivo, inclusivo, sustentable y soberano.</p>
       <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-3);">
@@ -238,33 +390,47 @@
 
 <sc-if value="{{ esReuniones }}" hint-placeholder-val="{{ false }}">
 <main data-screen-label="Reuniones">
+  <h1 class="visually-hidden">Un camino de encuentros federales</h1>
   <x-import component-from-global-scope="DesignSystem_617e9b.Section" size="lg" eyebrow="Reuniones" title="Un camino de encuentros federales" lead="Tres encuentros nacionales entre 2025 y 2026, en Posadas, Bariloche y Resistencia." hint-size="100%,auto">
-    <div style="display: flex; flex-direction: column; gap: var(--space-9);">
-      <article style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: var(--space-6); border-top: 1px solid var(--border); padding-top: var(--space-5);">
+    <figure class="reveal hover-lift" style="margin: 0 0 var(--space-8); border-radius: var(--radius-xl);">
+      <img src="assets/posadas-encuentro.jpg" alt="Participantes de los encuentros del Foro Federal CTU reunidos en una sala de universidad" loading="lazy" style="width: 100%; height: clamp(220px, 32vw, 420px); object-fit: cover; border-radius: var(--radius-xl); display: block;">
+      <figcaption style="font: var(--type-mono); letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--text-muted); margin-top: var(--space-3);">Encuentros del Foro Federal CTU</figcaption>
+    </figure>
+    <div class="reveal-group" style="display: flex; flex-direction: column; gap: var(--space-9);">
+      <article class="reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: var(--space-6); border-top: 1px solid var(--border); padding-top: var(--space-5);">
         <div>
-          <div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--text-muted);">9 y 10 de junio de 2025</div>
+          <div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--text-muted);">10 de junio de 2025</div>
           <h3 style="font: var(--type-h3-fluid); letter-spacing: var(--tracking-display); margin: var(--space-3) 0 0;">Primer Encuentro</h3>
-          <div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Misiones · Posadas</div>
-        </div>
-        <p style="font: var(--type-body); color: var(--text-secondary); margin: 0; max-width: 52ch; text-wrap: pretty;">Primera edición, donde se establecieron las bases del diagnóstico y se abrió el debate sobre la arquitectura institucional necesaria para el desarrollo de la ciencia, la tecnología y la innovación en Argentina.</p>
-      </article>
-      <article style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: var(--space-6); border-top: 1px solid var(--border); padding-top: var(--space-5);">
-        <div>
-          <div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--text-muted);">14 y 15 de mayo de 2026</div>
-          <h3 style="font: var(--type-h3-fluid); letter-spacing: var(--tracking-display); margin: var(--space-3) 0 0;">2das Jornadas</h3>
-          <div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Río Negro, Sede Andina · San Carlos de Bariloche</div>
+          <div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Misiones y Universidad Nacional del Chaco Austral · Posadas</div>
         </div>
         <div style="max-width: 52ch; display: flex; flex-direction: column; gap: var(--space-4);">
-          <p style="font: var(--type-body); color: var(--text-secondary); margin: 0; text-wrap: pretty;">Convocadas por doce universidades nacionales bajo el título “Propuestas para una Nueva Arquitectura Institucional en Universidad, Ciencia y Tecnología”. Contaron con más de 100 participantes presenciales, entre ellos rectores, investigadores y funcionarios de organismos de ciencia, tecnología e innovación, y más de 600 personas que siguieron la transmisión.</p>
+          <p style="font: var(--type-body); color: var(--text-secondary); margin: 0; text-wrap: pretty;">Primera edición del Foro: la jornada “Arquitecturas institucionales para el desarrollo de la ciencia, la tecnología y la innovación nacional”, organizada por la UNaM y la UNCAUS en el SUM Juan Figueredo de la Facultad de Humanidades y Ciencias Sociales de la UNaM. Con la participación presencial y virtual de referentes de distintas provincias —entre ellos el economista Fernando Peirano (UNQ y UBA, expresidente de la Agencia I+D+i)—, se debatió en tres paneles: el modelo de desarrollo del país y el rol de la ciencia, la tecnología y la innovación; las fortalezas y debilidades de la arquitectura institucional vigente; y la articulación entre las provincias y el sector de CTI para innovar en las cadenas de valor regionales. De ese intercambio surgieron las bases del diagnóstico que el Foro profundizaría en los encuentros siguientes.</p>
           <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
-            <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="#/documento" variant="secondary" hint-size="auto,40px">Conclusiones y propuestas</x-import>
+            <div class="hover-lift" style="border-radius: var(--radius-md);">
+              <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="https://www.unam.edu.ar/index.php/noticias?view=article&amp;id=1292:se-realiz%C3%B3-la-primera-jornada-sobre-arquitectura-institucional-para-la-ciencia-y-la-innovaci%C3%B3n&amp;catid=66" target="_blank" variant="secondary" hint-size="auto,40px">Leer la nota en el sitio de la UNaM</x-import>
+            </div>
           </div>
         </div>
       </article>
-      <article style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: var(--space-6); border-top: 1px solid var(--accent); padding-top: var(--space-5);">
+      <article class="reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: var(--space-6); border-top: 1px solid var(--border); padding-top: var(--space-5);">
         <div>
-          <div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--accent);">9 y 10 de octubre de 2026 · Próximo</div>
-          <h3 style="font: var(--type-h3-fluid); letter-spacing: var(--tracking-display); margin: var(--space-3) 0 0;">Tercer Encuentro Nacional</h3>
+          <div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--text-muted);">14 y 15 de mayo de 2026</div>
+          <h3 style="font: var(--type-h3-fluid); letter-spacing: var(--tracking-display); margin: var(--space-3) 0 0;">Segundo Encuentro</h3>
+          <div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Río Negro, Sede Andina · San Carlos de Bariloche</div>
+        </div>
+        <div style="max-width: 52ch; display: flex; flex-direction: column; gap: var(--space-4);">
+          <p style="font: var(--type-body); color: var(--text-secondary); margin: 0; text-wrap: pretty;">Convocado por doce universidades nacionales bajo el título “Propuestas para una Nueva Arquitectura Institucional en Universidad, Ciencia y Tecnología”. Contó con más de 100 participantes presenciales, entre ellos rectores, investigadores y funcionarios de organismos de ciencia, tecnología e innovación, y más de 600 personas que siguieron la transmisión.</p>
+          <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+            <div class="hover-lift" style="border-radius: var(--radius-md);">
+              <x-import component-from-global-scope="DesignSystem_617e9b.Button" as="a" href="#/documento" variant="secondary" hint-size="auto,40px">Conclusiones y propuestas</x-import>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: var(--space-6); border-top: 1px solid var(--accent); padding-top: var(--space-5);">
+        <div>
+          <div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--accent);">8 y 9 de octubre de 2026 · Próximo</div>
+          <h3 style="font: var(--type-h3-fluid); letter-spacing: var(--tracking-display); margin: var(--space-3) 0 0;">Tercer Encuentro</h3>
           <div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional del Chaco Austral, Sede Resistencia · Resistencia, Chaco</div>
         </div>
         <div style="max-width: 52ch; display: flex; flex-direction: column; gap: var(--space-4);">
@@ -275,18 +441,32 @@
     </div>
   </x-import>
 
-  <x-import component-from-global-scope="DesignSystem_617e9b.CTABand" title="Escribinos para participar" lead="Contactanos si tu institución quiere formar parte del tercer Encuentro Nacional en Resistencia." hint-size="100%,auto"></x-import>
+  <x-import component-from-global-scope="DesignSystem_617e9b.CTABand" title="Escribinos para participar" lead="Contactanos si tu institución quiere formar parte del tercer Encuentro en Resistencia." hint-size="100%,auto"></x-import>
 </main>
 </sc-if>
 
 <sc-if value="{{ esNoticias }}" hint-placeholder-val="{{ false }}">
 <main data-screen-label="Noticias">
+  <h1 class="visually-hidden">Novedades del Foro Federal CTU</h1>
   <x-import component-from-global-scope="DesignSystem_617e9b.Section" size="lg" eyebrow="Noticias" title="Novedades del Foro Federal CTU" hint-size="100%,auto">
     <x-import component-from-global-scope="DesignSystem_617e9b.Grid" min="280" hint-size="100%,auto">
-      <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Institucional" title="Queda conformado el Foro Federal de Ciencia, Tecnología y Universidad" dek="Después de las reuniones en la UNaM y en la UNRN, las universidades e instituciones científico-tecnológicas participantes constituyen el Foro con el lema Ciencia Orientada, Tecnología Nacional, Universidad Crítica." meta="9 de julio de 2026" hint-size="100%,auto"></x-import>
-      <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Documento" title="Ponemos a consideración las Ideas Fuerza" dek="El documento reúne las conclusiones y propuestas de las 2das Jornadas en siete ejes, del marco político y conceptual a la evaluación de las actividades de CTI. No es un documento cerrado: está abierto a críticas y aportes." meta="9 de julio de 2026" href="#/documento" hint-size="100%,auto"></x-import>
-      <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Encuentro" title="El tercer Encuentro Nacional se realizará en Resistencia" dek="La Universidad Nacional del Chaco Austral recibe al Foro en su Sede Resistencia los días 9 y 10 de octubre de 2026." meta="Chaco" href="#/reuniones" hint-size="100%,auto"></x-import>
-      <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Archivo" title="Ya están disponibles los videos de las jornadas de Bariloche" dek="Las dos jornadas completas de mayo de 2026, seguidas por más de 600 personas en la transmisión, quedaron publicadas para consulta." meta="Mayo de 2026" href="#/documento" hint-size="100%,auto"></x-import>
+      <div class="reveal-group" style="display: contents;">
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Institucional" title="Queda conformado el Foro Federal de Ciencia, Tecnología y Universidad" dek="Después de las reuniones en la UNaM y en la UNRN, las universidades e instituciones científico-tecnológicas participantes constituyen el Foro con el lema Ciencia Orientada, Tecnología Nacional, Universidad Crítica." meta="9 de julio de 2026" hint-size="100%,auto"></x-import>
+        </div>
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Documento" title="Ponemos a consideración las Ideas Fuerza" dek="El documento reúne las conclusiones y propuestas de las 2das Jornadas en siete ejes, del marco político y conceptual a la evaluación de las actividades de CTI. No es un documento cerrado: está abierto a críticas y aportes." meta="9 de julio de 2026" href="#/documento" hint-size="100%,auto"></x-import>
+        </div>
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Encuentro" title="El tercer Encuentro se realizará en Resistencia" dek="La Universidad Nacional del Chaco Austral recibe al Foro en su Sede Resistencia los días 8 y 9 de octubre de 2026." meta="Chaco" href="#/reuniones" hint-size="100%,auto"></x-import>
+        </div>
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Archivo" title="Ya están disponibles los videos de las jornadas de Bariloche" dek="Las dos jornadas completas de mayo de 2026, seguidas por más de 600 personas en la transmisión, quedaron publicadas para consulta." meta="Mayo de 2026" href="#/documento" hint-size="100%,auto"></x-import>
+        </div>
+        <div class="reveal hover-lift" style="border-radius: var(--radius-md);">
+          <x-import component-from-global-scope="DesignSystem_617e9b.ArticleCard" image="{{ false }}" kicker="Primer Encuentro" title="Fernando Peirano expuso en la jornada que dio origen al Foro" dek="El economista de la UNQ y la UBA, expresidente de la Agencia I+D+i, participó como expositor presencial en el encuentro organizado por la UNaM y la UNCAUS en Posadas, germen del Foro Federal CTU." meta="10 de junio de 2025" href="#/reuniones" hint-size="100%,auto"></x-import>
+        </div>
+      </div>
     </x-import>
   </x-import>
 </main>
@@ -294,20 +474,23 @@
 
 <sc-if value="{{ esAlianzas }}" hint-placeholder-val="{{ false }}">
 <main data-screen-label="Alianzas y apoyos">
+  <h1 class="visually-hidden">Doce universidades nacionales convocaron las 2das Jornadas</h1>
   <x-import component-from-global-scope="DesignSystem_617e9b.Section" size="lg" eyebrow="Alianzas y apoyos" title="Doce universidades nacionales convocaron las 2das Jornadas" lead="A ellas se sumaron otras diez universidades nacionales y provinciales, que participaron a través de especialistas y autoridades." hint-size="100%,auto">
     <x-import component-from-global-scope="DesignSystem_617e9b.Grid" min="240" hint-size="100%,auto">
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNRN</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Río Negro</div></div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNaM</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Misiones</div></div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNCAUS</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional del Chaco Austral</div></div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNQ</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Quilmes</div></div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNPAZ</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de José C. Paz</div></div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNdeC</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Chilecito</div></div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNTDF</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Tierra del Fuego</div></div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNPA</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Patagonia Austral</div></div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNT</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Tucumán</div></div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNICEN</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional del Centro</div></div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNSJ</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de San Juan</div></div>
-      <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNSa</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Salta</div></div>
+      <div class="reveal-group" style="display: contents;">
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNRN</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Río Negro</div></div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNaM</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Misiones</div></div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNCAUS</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional del Chaco Austral</div></div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNQ</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Quilmes</div></div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNPAZ</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de José C. Paz</div></div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNdeC</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Chilecito</div></div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNTDF</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Tierra del Fuego</div></div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNPA</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Patagonia Austral</div></div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNT</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Tucumán</div></div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNICEN</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional del Centro</div></div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNSJ</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de San Juan</div></div>
+        <div class="reveal hover-lift" style="border-top: 1px solid var(--border); padding: var(--space-4) var(--space-3); margin: 0 calc(var(--space-3) * -1); border-radius: var(--radius-md);"><div style="font: var(--type-mono); letter-spacing: var(--tracking-mono); color: var(--accent);">UNSa</div><div style="font: var(--type-small); color: var(--text-secondary); margin-top: var(--space-2);">Universidad Nacional de Salta</div></div>
+      </div>
     </x-import>
   </x-import>
 
@@ -325,16 +508,17 @@
 
 <sc-if value="{{ esContacto }}" hint-placeholder-val="{{ false }}">
 <main data-screen-label="Contacto">
+  <h1 class="visually-hidden">Escribinos</h1>
   <x-import component-from-global-scope="DesignSystem_617e9b.Section" size="lg" eyebrow="Contacto" title="Escribinos" lead="Para recibir el documento, enviar críticas y aportes, o adherir al Foro Federal CTU." hint-size="100%,auto">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: clamp(32px, 5vw, 72px); align-items: start;">
       <div style="display: flex; flex-direction: column; gap: var(--space-6);">
         <div style="border-top: 1px solid var(--accent); padding-top: var(--space-4);">
           <div style="font: var(--type-eyebrow); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); margin-bottom: var(--space-2);">Correo electrónico</div>
-          <a href="mailto:jornadasCTI@unrn.edu.ar" style="font: var(--type-h4);">jornadasCTI@unrn.edu.ar</a>
+          <a href="mailto:ctu.forofederal@gmail.com" style="font: var(--type-h4);">ctu.forofederal@gmail.com</a>
         </div>
         <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);">
           <div style="font: var(--type-eyebrow); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); margin-bottom: var(--space-2);">Próximo encuentro</div>
-          <div style="font: var(--type-body); color: var(--text-secondary);">9 y 10 de octubre de 2026.<br>Universidad Nacional del Chaco Austral, Sede Resistencia.<br>Resistencia, Chaco.</div>
+          <div style="font: var(--type-body); color: var(--text-secondary);">8 y 9 de octubre de 2026.<br>Universidad Nacional del Chaco Austral, Sede Resistencia.<br>Resistencia, Chaco.</div>
         </div>
         <div style="border-top: 1px solid var(--border); padding-top: var(--space-4);">
           <div style="font: var(--type-eyebrow); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); margin-bottom: var(--space-2);">Encuentros anteriores</div>
@@ -343,6 +527,9 @@
       </div>
       <x-import component-from-global-scope="DesignSystem_617e9b.Card" padding="lg" hint-size="100%,auto">
         <form onSubmit="{{ enviar }}" style="display: flex; flex-direction: column; gap: var(--space-5);">
+          <input type="hidden" name="access_key" value="1e3e5639-d063-49d6-8946-8bebc9f6e3ab">
+          <input type="hidden" name="subject" value="Nuevo mensaje desde el sitio del Foro Federal CTU">
+          <input type="checkbox" name="botcheck" style="display: none;" tabindex="-1" autocomplete="off">
           <h3 style="font: var(--type-h4); margin: 0;">Enviar una consulta o un aporte</h3>
           <x-import component-from-global-scope="DesignSystem_617e9b.Field" label="Nombre y apellido" html-for="nombre" hint-size="100%,auto">
             <x-import component-from-global-scope="DesignSystem_617e9b.Input" id="nombre" name="nombre" placeholder="Su nombre" hint-size="100%,42px"></x-import>
@@ -367,10 +554,51 @@
 </main>
 </sc-if>
 
-<x-import component-from-global-scope="DesignSystem_617e9b.SiteFooter" brand="Foro Federal CTU" blurb="Foro Federal de Ciencia, Tecnología y Universidad. Ciencia Orientada, Tecnología Nacional, Universidad Crítica." groups="{{ gruposPie }}" legal="Foro Federal CTU · 2026" hint-size="100%,auto"></x-import>
+<x-import component-from-global-scope="DesignSystem_617e9b.SiteFooter" brand="Foro Federal CTU" blurb="Foro Federal de Ciencia, Tecnología y Universidad. Ciencia Orientada, Tecnología Nacional, Universidad Crítica." groups="{{ gruposPie }}" legal="Foro Federal CTU · 2026" dc-props="{{ pieLogoProps }}" hint-size="100%,auto"></x-import>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;docHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/documento-foro-federal-ctu.pdf&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Documento&quot;},&quot;mostrarCifras&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Inicio&quot;},&quot;mostrarLema&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Inicio&quot;}}">
+// Título y meta description por ruta: la SPA es hash-routed y se renderiza
+// 100% en cliente, así que nada los setea salvo que lo hagamos acá. Sin esto
+// document.title queda vacío y no cambia entre pantallas (bug real detectado
+// al auditar el sitio: ver _WEBS/_PLANTILLA_ClaudeCode_Sitios.md, sección 5).
+const PAGE_META = {
+  '/': {
+    title: 'Foro Federal CTU — Ciencia Orientada, Tecnología Nacional, Universidad Crítica',
+    description: 'Investigadores, docentes, profesionales y tecnólogos de universidades nacionales e instituciones científico-tecnológicas debaten una nueva arquitectura institucional para la ciencia, la tecnología y las universidades nacionales de Argentina.',
+  },
+  '/documento': {
+    title: 'Documento — Foro Federal CTU',
+    description: 'Propuestas para una nueva arquitectura institucional en Universidad, Ciencia y Tecnología: siete ejes de conclusiones y propuestas de las 2das Jornadas de Bariloche.',
+  },
+  '/reuniones': {
+    title: 'Reuniones — Foro Federal CTU',
+    description: 'Los tres encuentros nacionales del Foro Federal CTU: Posadas (2025), Bariloche (2026) y Resistencia (2026).',
+  },
+  '/noticias': {
+    title: 'Noticias — Foro Federal CTU',
+    description: 'Novedades del Foro Federal de Ciencia, Tecnología y Universidad.',
+  },
+  '/alianzas': {
+    title: 'Alianzas y apoyos — Foro Federal CTU',
+    description: 'Las doce universidades nacionales que convocaron las 2das Jornadas del Foro Federal CTU.',
+  },
+  '/contacto': {
+    title: 'Contacto — Foro Federal CTU',
+    description: 'Escribinos para recibir el documento, enviar críticas y aportes, o adherir al Foro Federal CTU.',
+  },
+};
+
+function applyPageMeta(ruta) {
+  const meta = PAGE_META[ruta] || PAGE_META['/'];
+  document.title = meta.title;
+  const tag = document.querySelector('meta[name="description"]');
+  if (tag) tag.setAttribute('content', meta.description);
+}
+
+// Ruteo por hash: se decidió mantenerlo (no migrar a rutas reales/SSR) porque
+// este sitio es de alcance chico y se comparte por link directo — ver el
+// tradeoff completo en _WEBS/_PLANTILLA_ClaudeCode_Sitios.md, sección 5.3.
 class Component extends DCLogic {
   state = { ruta: '/', estadoEnvio: '' };
 
@@ -378,6 +606,7 @@ class Component extends DCLogic {
     this._sync = () => {
       const r = (window.location.hash || '').replace(/^#/, '') || '/';
       this.setState({ ruta: r, estadoEnvio: '' });
+      applyPageMeta(r);
       window.scrollTo(0, 0);
     };
     this._sync();
@@ -408,6 +637,21 @@ class Component extends DCLogic {
     return {
       videoRef: this._v,
       botonInverso: { style: { color: 'var(--text-inverse)', borderColor: 'var(--border-inverse)' } },
+      pieLogoProps: {
+        logo: React.createElement(
+          'div',
+          { className: 'ctu-logo', style: { fontSize: '40px' } },
+          React.createElement(
+            'span',
+            { className: 'ctu-logo__sun', 'aria-hidden': 'true' },
+            React.createElement('img', { src: 'assets/logo/ctu-sol-16-ink.svg', alt: '' })
+          ),
+          React.createElement('span', { className: 'ctu-logo__sigla' }, 'CTU'),
+          React.createElement('span', { className: 'ctu-logo__name' }, 'FORO FEDERAL'),
+          React.createElement('span', { className: 'ctu-logo__rule', 'aria-hidden': 'true' }),
+          React.createElement('span', { className: 'ctu-logo__tag' }, 'Ciencia · Tecnología · Universidad')
+        ),
+      },
       esInicio: r === '/' || r === '',
       esDocumento: r === '/documento',
       esReuniones: r === '/reuniones',
@@ -418,9 +662,28 @@ class Component extends DCLogic {
       mostrarLema: this.props.mostrarLema ?? true,
       docHref: this.props.docHref ?? 'assets/documento-foro-federal-ctu.pdf',
       estadoEnvio: this.state.estadoEnvio,
-      enviar: (e) => {
+      enviar: async (e) => {
         e.preventDefault();
-        this.setState({ estadoEnvio: 'Gracias. Le responderemos por correo electrónico.' });
+        const form = e.target;
+        const formData = new FormData(form);
+        formData.append('replyto', formData.get('correo'));
+        this.setState({ estadoEnvio: 'Enviando…' });
+        try {
+          const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { Accept: 'application/json' },
+            body: formData,
+          });
+          const result = await res.json();
+          if (result.success) {
+            form.reset();
+            this.setState({ estadoEnvio: 'Gracias. Le responderemos por correo electrónico.' });
+          } else {
+            this.setState({ estadoEnvio: 'No pudimos enviar el mensaje. Escríbanos a ctu.forofederal@gmail.com.' });
+          }
+        } catch (err) {
+          this.setState({ estadoEnvio: 'No pudimos enviar el mensaje. Escríbanos a ctu.forofederal@gmail.com.' });
+        }
       },
       gruposPie: [
         { title: 'El Foro', links: [
@@ -434,7 +697,7 @@ class Component extends DCLogic {
           { label: 'Contacto', href: '#/contacto' },
         ] },
         { title: 'Próximo encuentro', links: [
-          { label: '9 y 10 de octubre de 2026', href: '#/reuniones' },
+          { label: '8 y 9 de octubre de 2026', href: '#/reuniones' },
           { label: 'UNCAUS, Sede Resistencia', href: '#/reuniones' },
           { label: 'Resistencia, Chaco', href: '#/reuniones' },
         ] },
@@ -442,6 +705,67 @@ class Component extends DCLogic {
     };
   }
 }
+</script>
+
+<script>
+/**
+ * Scroll-reveal engine.
+ *
+ * - Progressive enhancement: bails out immediately if the browser has no
+ *   IntersectionObserver, or if the user prefers reduced motion — in both
+ *   cases `.reveal` elements simply render in their final state (the
+ *   hidden/animated CSS only exists under `.js-reveal`, see <style>).
+ * - Uses a MutationObserver because this page is a hash-routed SPA: whole
+ *   sections mount/unmount as the route changes, so a one-time
+ *   querySelectorAll at load time would miss anything rendered later.
+ * - Each element reveals once, then is unobserved (no re-triggering on
+ *   scroll back up — cheaper, and avoids repeated motion).
+ */
+(function initScrollReveal() {
+  var supportsIO = "IntersectionObserver" in window;
+  var wantsMotion =
+    !window.matchMedia ||
+    window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+
+  if (!supportsIO || !wantsMotion) return;
+
+  document.documentElement.classList.add("js-reveal");
+
+  var revealObserver = new IntersectionObserver(onIntersect, {
+    threshold: 0.15,
+    rootMargin: "0px 0px -60px 0px",
+  });
+
+  function onIntersect(entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      revealObserver.unobserve(entry.target);
+    });
+  }
+
+  function observe(el) {
+    if (el.dataset.revealBound) return;
+    el.dataset.revealBound = "true";
+    revealObserver.observe(el);
+  }
+
+  function scanForRevealTargets(root) {
+    if (root.nodeType !== 1) return;
+    if (root.matches && root.matches(".reveal")) observe(root);
+    if (root.querySelectorAll) {
+      root.querySelectorAll(".reveal").forEach(observe);
+    }
+  }
+
+  scanForRevealTargets(document.body);
+
+  new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      mutation.addedNodes.forEach(scanForRevealTargets);
+    });
+  }).observe(document.body, { childList: true, subtree: true });
+})();
 </script>
 </body>
 </html>

@@ -3,11 +3,12 @@
    Those are not freely licensed and no files were supplied, so the system now ships
    open Google fonts as the real families: Newsreader (display), Work Sans (body/UI),
    JetBrains Mono (mono). */
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@900&display=swap");
 
 :root {
   --font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
   --font-body: "Work Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-ui: var(--font-body);
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-brand: "Orbitron", sans-serif;
 }
